@@ -1,0 +1,70 @@
+uid: weatherMinMax
+tags:
+  - temperature
+  - weather
+props:
+  parameters: []
+  parameterGroups: []
+timestamp: Dec 29, 2025, 8:27:28 PM
+component: f7-card
+config:
+  class:
+    - padding
+  style:
+    text-align: center
+slots:
+  default:
+    - component: f7-row
+      slots:
+        default:
+          - component: f6-col
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: Heute
+                - component: oh-icon
+                  config:
+                    icon: ="f7:"+items.OpenMeteo_weather_forecast_WMO_code_Today.displayState
+                    width: 50
+                - component: Label
+                  config:
+                    style:
+                      fontSize: 12px
+                    text: =items.OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Today.displayState
+                      + " / " +
+                      items.OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Today.displayState
+          - component: f6-col
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: Morgen
+                - component: oh-icon
+                  config:
+                    icon: ="f7:"+items.OpenMeteo_weather_forecast_WMO_code_Tomorrow.displayState
+                    width: 50
+                - component: Label
+                  config:
+                    style:
+                      fontSize: 12px
+                    text: =items.OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Tomorrow.displayState
+                      + " / " +
+                      items.OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Tomorrow.displayState
+          - component: f6-col
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: Übermorgen
+                - component: oh-icon
+                  config:
+                    icon: ="f7:"+items.OpenMeteo_weather_forecast_WMO_code_Day_2.displayState
+                    width: 50
+                - component: Label
+                  config:
+                    style:
+                      fontSize: 12px
+                    text: =items.OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_2.displayState
+                      + " / " +
+                      items.OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_2.displayState
