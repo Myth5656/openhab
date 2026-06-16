@@ -1,11 +1,49 @@
-uid: weatherMinMax
+uid: weatherMinMax_v2
 tags:
   - temperature
   - weather
 props:
-  parameters: []
-  parameterGroups: []
-timestamp: Dec 29, 2025, 8:27:28 PM
+  parameters:
+    - name: current_temp
+      label: Aktuelle Temperatur
+      type: TEXT
+      context: item
+    - name: wmo_today
+      label: WMO Code Heute
+      type: TEXT
+      context: item
+    - name: wmo_tomorrow
+      label: WMO Code Morgen
+      type: TEXT
+      context: item
+    - name: wmo_day2
+      label: WMO Code Übermorgen
+      type: TEXT
+      context: item
+    - name: temp_max_today
+      label: Max Temp Heute
+      type: TEXT
+      context: item
+    - name: temp_min_today
+      label: Min Temp Heute
+      type: TEXT
+      context: item
+    - name: temp_max_tomorrow
+      label: Max Temp Morgen
+      type: TEXT
+      context: item
+    - name: temp_min_tomorrow
+      label: Min Temp Morgen
+      type: TEXT
+      context: item
+    - name: temp_max_day2
+      label: Max Temp Übermorgen
+      type: TEXT
+      context: item
+    - name: temp_min_day2
+      label: Min Temp Übermorgen
+      type: TEXT
+      context: item
 component: f7-card
 config:
   class:
@@ -15,56 +53,67 @@ config:
 slots:
   default:
     - component: f7-row
+      config:
+        style:
+          margin-bottom: 15px
       slots:
         default:
-          - component: f6-col
+          - component: Label
+            config:
+              text: '="Aktuell: " + (items[props.current_temp].displayState || "–")'
+              style:
+                font-size: 16px
+                font-weight: 500
+                width: 100%
+                white-space: nowrap
+    - component: f7-row
+      slots:
+        default:
+          # Heute
+          - component: f7-col
             slots:
               default:
                 - component: Label
                   config:
                     text: Heute
+                    style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: ="f7:"+items.OpenMeteo_weather_forecast_WMO_code_Today.displayState
+                    icon: '="f7:" + items[props.wmo_today].displayState'
                     width: 50
                 - component: Label
                   config:
-                    style:
-                      fontSize: 12px
-                    text: =items.OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Today.displayState
-                      + " / " +
-                      items.OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Today.displayState
-          - component: f6-col
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(items[props.temp_min_today].displayState || "–") + " | " + (items[props.temp_max_today].displayState || "–")'
+          # Morgen
+          - component: f7-col
             slots:
               default:
                 - component: Label
                   config:
                     text: Morgen
+                    style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: ="f7:"+items.OpenMeteo_weather_forecast_WMO_code_Tomorrow.displayState
+                    icon: '="f7:" + items[props.wmo_tomorrow].displayState'
                     width: 50
                 - component: Label
                   config:
-                    style:
-                      fontSize: 12px
-                    text: =items.OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Tomorrow.displayState
-                      + " / " +
-                      items.OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Tomorrow.displayState
-          - component: f6-col
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(items[props.temp_min_tomorrow].displayState || "–") + " | " + (items[props.temp_max_tomorrow].displayState || "–")'
+          # Übermorgen
+          - component: f7-col
             slots:
               default:
                 - component: Label
                   config:
                     text: Übermorgen
+                    style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: ="f7:"+items.OpenMeteo_weather_forecast_WMO_code_Day_2.displayState
+                    icon: '="f7:" + items[props.wmo_day2].displayState'
                     width: 50
                 - component: Label
                   config:
-                    style:
-                      fontSize: 12px
-                    text: =items.OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_2.displayState
-                      + " / " +
-                      items.OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_2.displayState
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(items[props.temp_min_day2].displayState || "–") + " | " + (items[props.temp_max_day2].displayState || "–")'
