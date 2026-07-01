@@ -1,0 +1,159 @@
+uid: ev_savings_widget
+tags: []
+props:
+  parameters:
+    - context: item
+      label: Letzte Ladung (kWh)
+      name: last_charge_kwh
+      required: true
+      type: TEXT
+    - context: item
+      label: Gesamt geladen (kWh)
+      name: total_charge_kwh
+      required: true
+      type: TEXT
+    - default: "16"
+      label: E-Auto Verbrauch (kWh/100km)
+      name: consumption_ev
+      required: true
+    - default: "11"
+      label: Verbrenner Verbrauch (L/100km)
+      name: consumption_combustion
+      required: true
+timestamp: Jul 1, 2026, 9:59:03 PM
+component: f7-block
+config:
+  style:
+    padding: 10px
+slots:
+  default:
+    - component: f7-row
+      config:
+        style:
+          justify-content: space-around
+      slots:
+        default:
+          - component: f7-col
+            slots:
+              default:
+                - component: f7-card
+                  config:
+                    title: Letzter Ladevorgang
+                  slots:
+                    default:
+                      - component: f7-col
+                        config:
+                          style:
+                            padding: 15px
+                            align-items: center
+                            min-height: 75px
+                        slots:
+                          default:
+                            - component: Label
+                              config:
+                                text: =(Math.round((items[props.last_charge_kwh].numericState || 0) * 10) / 10)
+                                  + " kWh"
+                                style:
+                                  font-weight: bold
+                                  font-size: 16px
+                            - component: Label
+                              config:
+                                text: =(Math.round(((items[props.last_charge_kwh].numericState || 0) /
+                                  props.consumption_ev * 100) * 10) / 10) + " km
+                                  Reichweite"
+                                style:
+                                  font-size: 12px
+                                  color: gray
+                                  margin-top: 5px
+                - component: f7-card
+                  config:
+                    title: Geladen gesamt
+                  slots:
+                    default:
+                      - component: f7-col
+                        config:
+                          style:
+                            padding: 15px
+                            align-items: center
+                            min-height: 75px
+                        slots:
+                          default:
+                            - component: Label
+                              config:
+                                text: =(Math.round((items[props.total_charge_kwh].numericState || 0) * 10) / 10)
+                                  + " kWh"
+                                style:
+                                  font-weight: bold
+                                  font-size: 16px
+                            - component: Label
+                              config:
+                                text: =(Math.round(((items[props.total_charge_kwh].numericState || 0) /
+                                  props.consumption_ev * 100) * 10) / 10) + " km
+                                  Reichweite"
+                                style:
+                                  font-size: 12px
+                                  color: gray
+                                  margin-top: 5px
+          - component: f7-col
+            slots:
+              default:
+                - component: f7-card
+                  config:
+                    title: Ersparnis (letzte Ladung)
+                  slots:
+                    default:
+                      - component: f7-col
+                        config:
+                          style:
+                            padding: 15px
+                            align-items: center
+                            min-height: 75px
+                        slots:
+                          default:
+                            - component: Label
+                              config:
+                                text: =(Math.round(((items[props.last_charge_kwh].numericState || 0) /
+                                  props.consumption_ev *
+                                  props.consumption_combustion) * 10) / 10) + "
+                                  L"
+                                style:
+                                  font-weight: bold
+                                  font-size: 16px
+                                  color: green
+                            - component: Label
+                              config:
+                                text: Sprit nicht getankt
+                                style:
+                                  font-size: 12px
+                                  color: gray
+                                  margin-top: 5px
+                - component: f7-card
+                  config:
+                    title: Äquivalent (gesamt)
+                  slots:
+                    default:
+                      - component: f7-col
+                        config:
+                          style:
+                            padding: 15px
+                            align-items: center
+                            min-height: 75px
+                        slots:
+                          default:
+                            - component: Label
+                              config:
+                                text: =(Math.round(((items[props.total_charge_kwh].numericState || 0) /
+                                  props.consumption_ev *
+                                  props.consumption_combustion) * 10) / 10) + "
+                                  L"
+                                style:
+                                  font-weight: bold
+                                  font-size: 16px
+                                  color: green
+                            - component: Label
+                              config:
+                                text: Benzin nicht verbrannt
+                                style:
+                                  font-size: 12px
+                                  color: gray
+                                  margin-top: 5px
