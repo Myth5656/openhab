@@ -8,7 +8,6 @@ props:
       label: Aktuelle Temperatur
       type: TEXT
       context: item
-      default: OpenMeteo_weather_forecast_Current_outdoor_temperature
     - name: wmo_today
       label: WMO Code Heute
       type: TEXT
