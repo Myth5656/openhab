@@ -67,6 +67,7 @@ slots:
   default:
     - component: f7-row
       config:
+        visible: '=props.show_current_temp'
         style:
           margin-bottom: 15px
       slots:
