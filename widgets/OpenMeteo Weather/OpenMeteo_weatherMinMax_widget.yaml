@@ -105,7 +105,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: Morgen
+                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(1,"day").day()]'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -121,7 +121,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: Übermorgen
+                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(2,"day").day()]'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
