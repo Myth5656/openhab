@@ -4,6 +4,10 @@ tags:
   - weather
 props:
   parameters:
+    - name: show_current_temp
+      label: Aktuelle Temperatur anzeigen
+      type: BOOLEAN
+      default: false
     - name: current_temp
       label: Aktuelle Temperatur
       type: TEXT
