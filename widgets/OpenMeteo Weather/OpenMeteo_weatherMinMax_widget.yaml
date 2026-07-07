@@ -138,7 +138,7 @@ slots:
         default:
           - component: Label
             config:
-              text: '="Aktuell: " + (items[props.current_temp].displayState || "–")'
+              text: '="Aktuell: " + (@props.current_temp || "–")'
               style:
                 font-size: 16px
                 font-weight: 500
@@ -156,12 +156,12 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_today].displayState'
+                    icon: '="f7:" + @props.wmo_today'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_today].displayState || "–") + " | " + (items[props.temp_max_today].displayState || "–")'
+                    text: '=(@props.temp_min_today || "–") + " | " + (@props.temp_max_today || "–")'
           - component: f7-col
             slots:
               default:
@@ -171,12 +171,12 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_tomorrow].displayState'
+                    icon: '="f7:" + @props.wmo_tomorrow'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_tomorrow].displayState || "–") + " | " + (items[props.temp_max_tomorrow].displayState || "–")'
+                    text: '=(@props.temp_min_tomorrow || "–") + " | " + (@props.temp_max_tomorrow || "–")'
           - component: f7-col
             slots:
               default:
@@ -186,12 +186,12 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_day2].displayState'
+                    icon: '="f7:" + @props.wmo_day2'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_day2].displayState || "–") + " | " + (items[props.temp_max_day2].displayState || "–")'
+                    text: '=(@props.temp_min_day2 || "–") + " | " + (@props.temp_max_day2 || "–")'
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
@@ -203,12 +203,12 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_day3].displayState'
+                    icon: '="f7:" + @props.wmo_day3'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_day3].displayState || "–") + " | " + (items[props.temp_max_day3].displayState || "–")'
+                    text: '=(@props.temp_min_day3 || "–") + " | " + (@props.temp_max_day3 || "–")'
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
@@ -220,12 +220,12 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_day4].displayState'
+                    icon: '="f7:" + @props.wmo_day4'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_day4].displayState || "–") + " | " + (items[props.temp_max_day4].displayState || "–")'
+                    text: '=(@props.temp_min_day4 || "–") + " | " + (@props.temp_max_day4 || "–")'
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
@@ -237,12 +237,12 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_day5].displayState'
+                    icon: '="f7:" + @props.wmo_day5'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_day5].displayState || "–") + " | " + (items[props.temp_max_day5].displayState || "–")'
+                    text: '=(@props.temp_min_day5 || "–") + " | " + (@props.temp_max_day5 || "–")'
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
@@ -254,9 +254,9 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_day6].displayState'
+                    icon: '="f7:" + @props.wmo_day6'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_day6].displayState || "–") + " | " + (items[props.temp_max_day6].displayState || "–")'
+                    text: '=(@props.temp_min_day6 || "–") + " | " + (@props.temp_max_day6 || "–")'
