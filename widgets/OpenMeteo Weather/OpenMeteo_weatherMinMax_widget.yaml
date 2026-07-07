@@ -167,7 +167,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(1,"day").day()]'
+                    text: '=dayjs().add(1,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -182,7 +182,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(2,"day").day()]'
+                    text: '=dayjs().add(2,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -199,7 +199,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(3,"day").day()]'
+                    text: '=dayjs().add(3,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -216,7 +216,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(4,"day").day()]'
+                    text: '=dayjs().add(4,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -233,7 +233,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(5,"day").day()]'
+                    text: '=dayjs().add(5,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -250,7 +250,7 @@ slots:
               default:
                 - component: Label
                   config:
-                    text: '=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"][dayjs().add(6,"day").day()]'
+                    text: '=dayjs().add(6,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
