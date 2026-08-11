@@ -1,7 +1,7 @@
-0.0=sun_haze
-1.0=sun_haze
-2.0=sun_haze
-3.0=sun_haze
+0.0=sun_max
+1.0=sun_max
+2.0=cloud_sun
+3.0=cloud
 45.0=cloud_fog
 48.0=cloud_fog
 51.0=cloud_drizzle
@@ -18,11 +18,11 @@
 73.0=cloud_snow
 75.0=cloud_snow
 77.0=cloud_snow
-80.0=cloud_drizzle
-81.0=cloud_drizzle
-82.0=cloud_drizzle
+80.0=cloud_heavyrain
+81.0=cloud_heavyrain
+82.0=cloud_heavyrain
 85.0=cloud_snow
 86.0=cloud_snow
 95.0=cloud_bolt_rain
-96.0=cloud_bolt_rainv
+96.0=cloud_bolt_rain
 99.0=cloud_bolt_rain
