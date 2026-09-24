@@ -4,6 +4,14 @@ tags:
   - weather
 props:
   parameters:
+    - name: show_current_temp
+      label: Aktuelle Temperatur anzeigen
+      type: BOOLEAN
+      default: false
+    - name: extended_forecast
+      label: 7-Tage-Vorhersage anzeigen
+      type: BOOLEAN
+      default: false
     - name: current_temp
       label: Aktuelle Temperatur
       type: TEXT
@@ -12,38 +20,107 @@ props:
       label: WMO Code Heute
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Today
     - name: wmo_tomorrow
       label: WMO Code Morgen
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Tomorrow
     - name: wmo_day2
-      label: WMO Code Übermorgen
+      label: WMO Code Tag 2
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Day_2
+    - name: wmo_day3
+      label: WMO Code Tag 3
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Day_3
+    - name: wmo_day4
+      label: WMO Code Tag 4
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Day_4
+    - name: wmo_day5
+      label: WMO Code Tag 5
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Day_5
+    - name: wmo_day6
+      label: WMO Code Tag 6
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_WMO_code_Day_6
     - name: temp_max_today
       label: Max Temp Heute
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Today
     - name: temp_min_today
       label: Min Temp Heute
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Today
     - name: temp_max_tomorrow
       label: Max Temp Morgen
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Tomorrow
     - name: temp_min_tomorrow
       label: Min Temp Morgen
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Tomorrow
     - name: temp_max_day2
-      label: Max Temp Übermorgen
+      label: Max Temp Tag 2
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_2
     - name: temp_min_day2
-      label: Min Temp Übermorgen
+      label: Min Temp Tag 2
       type: TEXT
       context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_2
+    - name: temp_max_day3
+      label: Max Temp Tag 3
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_3
+    - name: temp_min_day3
+      label: Min Temp Tag 3
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_3
+    - name: temp_max_day4
+      label: Max Temp Tag 4
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_4
+    - name: temp_min_day4
+      label: Min Temp Tag 4
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_4
+    - name: temp_max_day5
+      label: Max Temp Tag 5
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_5
+    - name: temp_min_day5
+      label: Min Temp Tag 5
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_5
+    - name: temp_max_day6
+      label: Max Temp Tag 6
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Maximum_outdoor_temperature_Day_6
+    - name: temp_min_day6
+      label: Min Temp Tag 6
+      type: TEXT
+      context: item
+      default: OpenMeteo_weather_forecast_Minimum_outdoor_temperature_Day_6
 component: f7-card
 config:
   class:
@@ -54,13 +131,14 @@ slots:
   default:
     - component: f7-row
       config:
+        visible: '=props.show_current_temp'
         style:
           margin-bottom: 15px
       slots:
         default:
           - component: Label
             config:
-              text: '="Aktuell: " + (items[props.current_temp].displayState || "–")'
+              text: '="Aktuell: " + (@props.current_temp || "–")'
               style:
                 font-size: 16px
                 font-weight: 500
@@ -69,7 +147,6 @@ slots:
     - component: f7-row
       slots:
         default:
-          # Heute
           - component: f7-col
             slots:
               default:
@@ -79,41 +156,107 @@ slots:
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_today].displayState'
+                    icon: '="f7:" + @props.wmo_today'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_today].displayState || "–") + " | " + (items[props.temp_max_today].displayState || "–")'
-          # Morgen
+                    text: '=(@props.temp_min_today || "–") + " | " + (@props.temp_max_today || "–")'
           - component: f7-col
             slots:
               default:
                 - component: Label
                   config:
-                    text: Morgen
+                    text: '=dayjs().add(1,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_tomorrow].displayState'
+                    icon: '="f7:" + @props.wmo_tomorrow'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_tomorrow].displayState || "–") + " | " + (items[props.temp_max_tomorrow].displayState || "–")'
-          # Übermorgen
+                    text: '=(@props.temp_min_tomorrow || "–") + " | " + (@props.temp_max_tomorrow || "–")'
           - component: f7-col
             slots:
               default:
                 - component: Label
                   config:
-                    text: Übermorgen
+                    text: '=dayjs().add(2,"day").format("dddd")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
-                    icon: '="f7:" + items[props.wmo_day2].displayState'
+                    icon: '="f7:" + @props.wmo_day2'
                     width: 50
                 - component: Label
                   config:
                     style: {fontSize: 12px, white-space: nowrap}
-                    text: '=(items[props.temp_min_day2].displayState || "–") + " | " + (items[props.temp_max_day2].displayState || "–")'
+                    text: '=(@props.temp_min_day2 || "–") + " | " + (@props.temp_max_day2 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(3,"day").format("dddd")'
+                    style: {font-weight: bold}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day3'
+                    width: 50
+                - component: Label
+                  config:
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(@props.temp_min_day3 || "–") + " | " + (@props.temp_max_day3 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(4,"day").format("dddd")'
+                    style: {font-weight: bold}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day4'
+                    width: 50
+                - component: Label
+                  config:
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(@props.temp_min_day4 || "–") + " | " + (@props.temp_max_day4 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(5,"day").format("dddd")'
+                    style: {font-weight: bold}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day5'
+                    width: 50
+                - component: Label
+                  config:
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(@props.temp_min_day5 || "–") + " | " + (@props.temp_max_day5 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(6,"day").format("dddd")'
+                    style: {font-weight: bold}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day6'
+                    width: 50
+                - component: Label
+                  config:
+                    style: {fontSize: 12px, white-space: nowrap}
+                    text: '=(@props.temp_min_day6 || "–") + " | " + (@props.temp_max_day6 || "–")'
