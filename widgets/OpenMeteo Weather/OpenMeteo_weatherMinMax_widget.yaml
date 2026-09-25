@@ -12,6 +12,23 @@ props:
       label: 7-Tage-Vorhersage anzeigen
       type: BOOLEAN
       default: false
+    - name: forecast_layout
+      label: Tagesdarstellung
+      type: TEXT
+      default: wrap
+      options:
+        - value: wrap
+          label: Umbrechen
+        - value: slider
+          label: Horizontaler Scroll
+    - name: current_label
+      label: Text für "Aktuell"
+      type: TEXT
+      default: Aktuell
+    - name: today_label
+      label: Text für "Heute"
+      type: TEXT
+      default: Heute
     - name: current_temp
       label: Aktuelle Temperatur
       type: TEXT
@@ -138,21 +155,253 @@ slots:
         default:
           - component: Label
             config:
-              text: '="Aktuell: " + (@props.current_temp || "–")'
+              text: '=((props.current_label || "Aktuell") + ": ") + (@props.current_temp || "")'
               style:
                 font-size: 16px
                 font-weight: 500
                 width: 100%
                 white-space: nowrap
     - component: f7-row
+      config:
+        visible: '=props.forecast_layout === "wrap"'
+        style:
+          display: flex
+          flex-wrap: wrap
+          gap: 8px
+          width: 100%
       slots:
         default:
           - component: f7-col
+            config:
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
             slots:
               default:
                 - component: Label
                   config:
-                    text: Heute
+                    text: '=(props.today_label || "Heute")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_today'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_today || "–") + " | " + (@props.temp_max_today || "–")'
+          - component: f7-col
+            config:
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(1,"day").format("dddd")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_tomorrow'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_tomorrow || "–") + " | " + (@props.temp_max_tomorrow || "–")'
+          - component: f7-col
+            config:
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(2,"day").format("dddd")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day2'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_day2 || "–") + " | " + (@props.temp_max_day2 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(3,"day").format("dddd")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day3'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_day3 || "–") + " | " + (@props.temp_max_day3 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(4,"day").format("dddd")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day4'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_day4 || "–") + " | " + (@props.temp_max_day4 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(5,"day").format("dddd")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day5'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_day5 || "–") + " | " + (@props.temp_max_day5 || "–")'
+          - component: f7-col
+            config:
+              visible: '=props.extended_forecast'
+              style:
+                flex: 1 1 80px
+                min-width: 80px
+                max-width: 110px
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=dayjs().add(6,"day").format("dddd")'
+                    style: {font-weight: bold, width: '100%', text-align: center}
+                - component: oh-icon
+                  config:
+                    icon: '="f7:" + @props.wmo_day6'
+                    width: 46
+                    style:
+                      display: block
+                      margin: 0 auto
+                - component: Label
+                  config:
+                    style: {fontSize: 11px, white-space: nowrap, width: '100%', text-align: center}
+                    text: '=(@props.temp_min_day6 || "–") + " | " + (@props.temp_max_day6 || "–")'
+    - component: f7-row
+      config:
+        visible: '=props.forecast_layout === "slider"'
+        style:
+          display: flex
+          flex-wrap: nowrap
+          overflow-x: auto
+          overflow-y: hidden
+          width: 100%
+          gap: 8px
+          padding: 2px 4px 6px
+          scroll-behavior: smooth
+          scroll-snap-type: x proximity
+          -webkit-overflow-scrolling: touch
+          touch-action: pan-x
+          scrollbar-width: thin
+      slots:
+        default:
+          - component: f7-col
+            config:
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
+            slots:
+              default:
+                - component: Label
+                  config:
+                    text: '=(props.today_label || "Heute")'
                     style: {font-weight: bold}
                 - component: oh-icon
                   config:
@@ -163,6 +412,13 @@ slots:
                     style: {fontSize: 12px, white-space: nowrap}
                     text: '=(@props.temp_min_today || "–") + " | " + (@props.temp_max_today || "–")'
           - component: f7-col
+            config:
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
             slots:
               default:
                 - component: Label
@@ -178,6 +434,13 @@ slots:
                     style: {fontSize: 12px, white-space: nowrap}
                     text: '=(@props.temp_min_tomorrow || "–") + " | " + (@props.temp_max_tomorrow || "–")'
           - component: f7-col
+            config:
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
             slots:
               default:
                 - component: Label
@@ -195,6 +458,12 @@ slots:
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
             slots:
               default:
                 - component: Label
@@ -212,6 +481,12 @@ slots:
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
             slots:
               default:
                 - component: Label
@@ -229,6 +504,12 @@ slots:
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
             slots:
               default:
                 - component: Label
@@ -246,6 +527,12 @@ slots:
           - component: f7-col
             config:
               visible: '=props.extended_forecast'
+              style:
+                flex: 0 0 110px
+                width: 110px
+                min-width: 110px
+                max-width: 110px
+                scroll-snap-align: start
             slots:
               default:
                 - component: Label
